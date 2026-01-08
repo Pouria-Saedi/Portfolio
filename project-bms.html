@@ -1,0 +1,935 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Building Management System - Smart Lighting Control</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #667eea;
+            --secondary: #764ba2;
+            --accent: #f093fb;
+            --dark: #0f0c29;
+            --dark-alt: #1a1628;
+            --card-bg: #241e3e;
+            --text-primary: #ffffff;
+            --text-secondary: #c7c7d8;
+            --text-muted: #8888a3;
+            --border: rgba(255, 255, 255, 0.1);
+            --shadow: rgba(102, 126, 234, 0.15);
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: var(--dark);
+            color: var(--text-primary);
+            line-height: 1.8;
+        }
+
+        .bg-gradient {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: -1;
+            background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+            background-size: 400% 400%;
+            animation: gradientShift 15s ease infinite;
+        }
+
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            background: rgba(15, 12, 41, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border);
+            padding: 1.2rem 0;
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 3rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .back-btn {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .back-btn:hover {
+            color: var(--primary);
+            gap: 0.8rem;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        /* Project Hero */
+        .project-hero {
+            padding-top: 8rem;
+            padding-bottom: 3rem;
+            text-align: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding-left: 3rem;
+            padding-right: 3rem;
+        }
+
+        .project-category {
+            color: var(--accent);
+            font-size: 0.9rem;
+            font-weight: 600;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 1rem;
+        }
+
+        .project-title {
+            font-size: 4rem;
+            font-weight: 800;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(135deg, var(--text-primary), var(--text-secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            line-height: 1.2;
+        }
+
+        .project-subtitle {
+            font-size: 1.5rem;
+            color: var(--text-secondary);
+            max-width: 800px;
+            margin: 0 auto 3rem;
+        }
+
+        .project-meta {
+            display: flex;
+            justify-content: center;
+            gap: 3rem;
+            flex-wrap: wrap;
+        }
+
+        .meta-item {
+            text-align: center;
+        }
+
+        .meta-label {
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .meta-value {
+            color: var(--primary);
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+
+        /* Project Content */
+        .project-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 3rem 6rem;
+        }
+
+        .content-section {
+            background: var(--card-bg);
+            border-radius: 30px;
+            padding: 3rem;
+            margin-bottom: 3rem;
+            border: 1px solid var(--border);
+        }
+
+        .content-section h2 {
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+            color: var(--primary);
+        }
+
+        .content-section h3 {
+            font-size: 1.8rem;
+            margin-top: 2.5rem;
+            margin-bottom: 1.5rem;
+            color: var(--accent);
+        }
+
+        .content-section p {
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+            margin-bottom: 1.5rem;
+            line-height: 1.9;
+        }
+
+        /* Key Features List */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .feature-card {
+            background: rgba(102, 126, 234, 0.05);
+            padding: 2rem;
+            border-radius: 15px;
+            border-left: 4px solid var(--primary);
+            transition: all 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateX(10px);
+            background: rgba(102, 126, 234, 0.1);
+            border-left-color: var(--accent);
+        }
+
+        .feature-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .feature-card h4 {
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+            color: var(--text-primary);
+        }
+
+        .feature-card p {
+            color: var(--text-muted);
+            font-size: 1rem;
+            line-height: 1.7;
+            margin: 0;
+        }
+
+        /* Specs Grid */
+        .specs-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .spec-card {
+            background: rgba(118, 75, 162, 0.1);
+            padding: 1.5rem;
+            border-radius: 15px;
+            border: 1px solid rgba(118, 75, 162, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .spec-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--secondary);
+            box-shadow: 0 10px 30px var(--shadow);
+        }
+
+        .spec-label {
+            color: var(--accent);
+            font-weight: 600;
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .spec-value {
+            color: var(--text-primary);
+            font-size: 1.2rem;
+            font-weight: 500;
+        }
+
+        /* Tech Stack */
+        .tech-stack {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .tech-tag {
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.2), rgba(118, 75, 162, 0.2));
+            color: var(--text-primary);
+            padding: 0.8rem 1.5rem;
+            border-radius: 25px;
+            font-size: 1rem;
+            font-weight: 500;
+            border: 2px solid rgba(102, 126, 234, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .tech-tag:hover {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            transform: translateY(-3px);
+            box-shadow: 0 5px 20px var(--shadow);
+        }
+
+        /* Image Gallery */
+        .image-gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .gallery-item {
+            position: relative;
+            border-radius: 15px;
+            overflow: hidden;
+            cursor: pointer;
+            aspect-ratio: 4/3;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+            transition: all 0.4s ease;
+        }
+
+        .gallery-item:hover {
+            transform: scale(1.05);
+            box-shadow: 0 15px 60px var(--shadow);
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.4s ease;
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.1);
+        }
+
+        .gallery-caption {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(to top, rgba(0, 0, 0, 0.9), transparent);
+            padding: 2rem 1.5rem 1.5rem;
+            color: white;
+            transform: translateY(100%);
+            transition: transform 0.4s ease;
+        }
+
+        .gallery-item:hover .gallery-caption {
+            transform: translateY(0);
+        }
+
+        .caption-title {
+            font-weight: 600;
+            font-size: 1.1rem;
+            margin-bottom: 0.3rem;
+        }
+
+        .caption-desc {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+
+        /* Modal/Lightbox */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.95);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+            padding: 2rem;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            max-width: 95%;
+            max-height: 90vh;
+            position: relative;
+        }
+
+        .modal-content img {
+            max-width: 100%;
+            max-height: 90vh;
+            border-radius: 15px;
+            object-fit: contain;
+        }
+
+        .modal-close {
+            position: absolute;
+            top: -50px;
+            right: 0;
+            color: white;
+            font-size: 2.5rem;
+            cursor: pointer;
+            background: var(--primary);
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            border: 2px solid white;
+        }
+
+        .modal-close:hover {
+            background: var(--accent);
+            transform: rotate(90deg);
+        }
+
+        /* CTA Section */
+        .cta-section {
+            text-align: center;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border-radius: 30px;
+            padding: 4rem 3rem;
+            margin-top: 4rem;
+        }
+
+        .cta-section h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: white;
+        }
+
+        .cta-section p {
+            font-size: 1.2rem;
+            color: rgba(255, 255, 255, 0.9);
+            margin-bottom: 2rem;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 1rem 2.5rem;
+            border-radius: 50px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            border: 2px solid white;
+            color: white;
+            background: transparent;
+        }
+
+        .btn:hover {
+            background: white;
+            color: var(--primary);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .project-title {
+                font-size: 3rem;
+            }
+
+            .project-container,
+            .nav-container {
+                padding-left: 2rem;
+                padding-right: 2rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .project-title {
+                font-size: 2.2rem;
+            }
+
+            .project-subtitle {
+                font-size: 1.2rem;
+            }
+
+            .content-section {
+                padding: 2rem;
+            }
+
+            .content-section h2 {
+                font-size: 2rem;
+            }
+
+            .image-gallery {
+                grid-template-columns: 1fr;
+            }
+
+            .features-grid,
+            .specs-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="bg-gradient"></div>
+
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-container">
+            <a href="index.html" class="back-btn">
+                <span>←</span>
+                <span>Back to Portfolio</span>
+            </a>
+            <div class="logo">BMS Project</div>
+        </div>
+    </nav>
+
+    <!-- Project Hero -->
+    <div class="project-hero">
+        <div class="project-category">Home Automation • IoT Solution</div>
+        <h1 class="project-title">Building Management System</h1>
+        <p class="project-subtitle">
+            Next-generation smart lighting control system with 1-4 gang switch support, 
+            global remote access, and local Bluetooth mesh connectivity
+        </p>
+
+        <div class="project-meta">
+            <div class="meta-item">
+                <div class="meta-label">Technology</div>
+                <div class="meta-value">ESP32 + Bluetooth Mesh</div>
+            </div>
+            <div class="meta-item">
+                <div class="meta-label">Project Type</div>
+                <div class="meta-value">Smart Home Automation</div>
+            </div>
+            <div class="meta-item">
+                <div class="meta-label">Status</div>
+                <div class="meta-value">Completed</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Project Content -->
+    <div class="project-container">
+        <!-- Overview Section -->
+        <div class="content-section">
+            <h2>📋 Project Overview</h2>
+            <p>
+                The Building Management System (BMS) is a comprehensive smart home automation solution 
+                designed to revolutionize lighting control in residential and commercial spaces. This 
+                sophisticated system integrates advanced relay control technology with modern wireless 
+                communication protocols to provide seamless, intelligent lighting management.
+            </p>
+            <p>
+                Built around the powerful ESP32 microcontroller platform, the system supports multiple 
+                switch configurations (1-gang, 2-gang, 3-gang, and 4-gang) allowing flexible deployment 
+                across different room layouts and requirements. Users can control their lighting from 
+                anywhere in the world through cloud connectivity, or utilize local Bluetooth mesh 
+                networking for ultra-fast, reliable control without internet dependency.
+            </p>
+            <p>
+                The project encompasses complete hardware and firmware development, including custom PCB 
+                design, power management circuits, relay driver optimization, and a robust embedded 
+                software stack that ensures reliable operation 24/7.
+            </p>
+        </div>
+
+        <!-- Key Features Section -->
+        <div class="content-section">
+            <h2>✨ Key Features & Capabilities</h2>
+
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">🎛️</div>
+                    <h4>Multi-Gang Support</h4>
+                    <p>Flexible configuration supporting 1 to 4 gang switches, allowing control of multiple 
+                    lighting zones from a single device with independent relay channels.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">🌐</div>
+                    <h4>Global Remote Access</h4>
+                    <p>Control your lights from anywhere in the world via smartphone app with cloud 
+                    integration using MQTT protocol and secure authentication.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">📡</div>
+                    <h4>Bluetooth Mesh</h4>
+                    <p>Local mesh networking enables instant control without internet, creating a self-healing 
+                    network of devices with low latency and high reliability.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">⚡</div>
+                    <h4>Smart Relay Control</h4>
+                    <p>Industrial-grade relay drivers with arc suppression, contact protection, and intelligent 
+                    switching algorithms to maximize relay lifespan.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">🔋</div>
+                    <h4>Energy Monitoring</h4>
+                    <p>Real-time power consumption tracking with historical data logging and energy usage 
+                    analytics for optimizing electricity consumption.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">🕐</div>
+                    <h4>Scheduling & Automation</h4>
+                    <p>Create complex schedules, timers, and automation rules based on time, events, or sensor 
+                    inputs for hands-free operation.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">🔒</div>
+                    <h4>Security Features</h4>
+                    <p>Encrypted communication, secure boot, firmware signing, and access control mechanisms 
+                    to prevent unauthorized access.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">🔄</div>
+                    <h4>OTA Updates</h4>
+                    <p>Over-the-air firmware updates enable seamless feature additions and bug fixes without 
+                    physical access to the device.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">💡</div>
+                    <h4>Status Indicators</h4>
+                    <p>Multi-color LED indicators provide visual feedback for system status, connectivity 
+                    state, and relay operation.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">🏗️</div>
+                    <h4>Modular Design</h4>
+                    <p>Scalable architecture allows easy expansion and integration with other smart home 
+                    devices and third-party platforms.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">🛡️</div>
+                    <h4>Protection Circuits</h4>
+                    <p>Over-voltage, over-current, reverse polarity protection, and thermal management ensure 
+                    safe operation under all conditions.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">🔧</div>
+                    <h4>Easy Installation</h4>
+                    <p>Standard wall box compatibility with clear installation instructions and wire terminals 
+                    for quick professional deployment.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Technical Specifications -->
+        <div class="content-section">
+            <h2>⚙️ Technical Specifications</h2>
+
+            <div class="specs-grid">
+                <div class="spec-card">
+                    <div class="spec-label">Microcontroller</div>
+                    <div class="spec-value">ESP32 Dual-Core</div>
+                </div>
+
+                <div class="spec-card">
+                    <div class="spec-label">Operating Voltage</div>
+                    <div class="spec-value">AC 110-240V</div>
+                </div>
+
+                <div class="spec-card">
+                    <div class="spec-label">Load Capacity</div>
+                    <div class="spec-value">10A per channel</div>
+                </div>
+
+                <div class="spec-card">
+                    <div class="spec-label">Wireless Protocol</div>
+                    <div class="spec-value">BLE Mesh + Wi-Fi</div>
+                </div>
+
+                <div class="spec-card">
+                    <div class="spec-label">Relay Type</div>
+                    <div class="spec-value">Omron SPST 16A</div>
+                </div>
+
+                <div class="spec-card">
+                    <div class="spec-label">Power Supply</div>
+                    <div class="spec-value">5V/3.3V Regulated</div>
+                </div>
+
+                <div class="spec-card">
+                    <div class="spec-label">Communication</div>
+                    <div class="spec-value">MQTT, HTTP, WebSocket</div>
+                </div>
+
+                <div class="spec-card">
+                    <div class="spec-label">Operating Temp</div>
+                    <div class="spec-value">-10°C to 55°C</div>
+                </div>
+
+                <div class="spec-card">
+                    <div class="spec-label">Dimensions</div>
+                    <div class="spec-value">86mm x 86mm x 40mm</div>
+                </div>
+
+                <div class="spec-card">
+                    <div class="spec-label">Certifications</div>
+                    <div class="spec-value">CE, FCC, RoHS</div>
+                </div>
+
+                <div class="spec-card">
+                    <div class="spec-label">Response Time</div>
+                    <div class="spec-value">< 100ms (Local)</div>
+                </div>
+
+                <div class="spec-card">
+                    <div class="spec-label">Mesh Range</div>
+                    <div class="spec-value">Up to 100m</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Technical Implementation -->
+        <div class="content-section">
+            <h2>💻 Technical Implementation</h2>
+
+            <h3>Hardware Architecture</h3>
+            <p>
+                The hardware design centers around the ESP32-WROOM-32 module, providing dual-core processing 
+                power at 240MHz with integrated Wi-Fi and Bluetooth capabilities. A custom 4-layer PCB design 
+                optimizes signal integrity, power distribution, and thermal management.
+            </p>
+            <p>
+                The power supply section features an AC-DC converter module providing regulated 5V/1A output, 
+                followed by a high-efficiency buck converter (MP2359) stepping down to 3.3V for the ESP32 and 
+                peripheral circuits. Each relay channel includes optocoupled isolation, flyback diode protection, 
+                and MOSFET-based drivers for silent, reliable switching.
+            </p>
+
+            <h3>Firmware Development</h3>
+            <p>
+                The embedded firmware is developed using ESP-IDF framework with FreeRTOS for real-time task 
+                management. The software architecture implements a modular design with separate tasks for:
+            </p>
+            <ul style="color: var(--text-secondary); margin-left: 2rem; margin-top: 1rem;">
+                <li style="margin-bottom: 0.8rem;"><strong style="color: var(--primary);">Bluetooth Mesh Networking:</strong> Handles mesh provisioning, node-to-node communication, and message relay</li>
+                <li style="margin-bottom: 0.8rem;"><strong style="color: var(--primary);">Wi-Fi Management:</strong> Maintains cloud connectivity with automatic reconnection and fallback mechanisms</li>
+                <li style="margin-bottom: 0.8rem;"><strong style="color: var(--primary);">Relay Control:</strong> Manages switching logic, debouncing, and state persistence in NVS flash</li>
+                <li style="margin-bottom: 0.8rem;"><strong style="color: var(--primary);">MQTT Client:</strong> Handles publish/subscribe operations for remote control and status updates</li>
+                <li style="margin-bottom: 0.8rem;"><strong style="color: var(--primary);">OTA Manager:</strong> Validates and installs firmware updates securely</li>
+            </ul>
+
+            <h3>Cloud Integration</h3>
+            <p>
+                The system connects to AWS IoT Core using secure MQTT over TLS 1.2, with device authentication 
+                via X.509 certificates. A custom Node.js backend handles user management, device provisioning, 
+                and real-time command routing. Mobile apps (iOS/Android) communicate with the backend via 
+                RESTful APIs and receive instant updates through WebSocket connections.
+            </p>
+
+            <h3>Technologies & Tools Used</h3>
+            <div class="tech-stack">
+                <span class="tech-tag">ESP32</span>
+                <span class="tech-tag">ESP-IDF</span>
+                <span class="tech-tag">FreeRTOS</span>
+                <span class="tech-tag">Bluetooth Mesh</span>
+                <span class="tech-tag">Wi-Fi</span>
+                <span class="tech-tag">MQTT</span>
+                <span class="tech-tag">AWS IoT Core</span>
+                <span class="tech-tag">KiCad</span>
+                <span class="tech-tag">Altium Designer</span>
+                <span class="tech-tag">C/C++</span>
+                <span class="tech-tag">Node.js</span>
+                <span class="tech-tag">REST API</span>
+                <span class="tech-tag">WebSocket</span>
+                <span class="tech-tag">TLS/SSL</span>
+                <span class="tech-tag">OTA Updates</span>
+                <span class="tech-tag">NVS Storage</span>
+                <span class="tech-tag">GPIO Control</span>
+                <span class="tech-tag">Power Management</span>
+            </div>
+        </div>
+
+        <!-- Project Gallery -->
+        <div class="content-section">
+            <h2>📸 Project Gallery</h2>
+            <p>
+                Explore detailed images of the hardware design, assembly process, testing setup, and 
+                final product deployment. Click on any image to view in full resolution.
+            </p>
+
+            <div class="image-gallery">
+                <div class="gallery-item" onclick="openModal(this)">
+                    <img src="bms_relay_module/Photo 06-01-26, 19 13 19.jpg" alt="BMS Main Board">
+                    <div class="gallery-caption">
+                        <div class="caption-title">Main Control Board</div>
+                        <div class="caption-desc">Complete PCB assembly with ESP32 and relay modules</div>
+                    </div>
+                </div>
+
+                <div class="gallery-item" onclick="openModal(this)">
+                    <img src="bms_relay_module/Photo 06-01-26, 19 13 26.jpg" alt="Component Layout">
+                    <div class="gallery-caption">
+                        <div class="caption-title">Component Layout</div>
+                        <div class="caption-desc">Detailed view of component placement and routing</div>
+                    </div>
+                </div>
+
+                <div class="gallery-item" onclick="openModal(this)">
+                    <img src="bms_relay_module/Photo 06-01-26, 19 13 32.jpg" alt="Relay Array">
+                    <div class="gallery-caption">
+                        <div class="caption-title">Relay Configuration</div>
+                        <div class="caption-desc">4-channel relay array with driver circuits</div>
+                    </div>
+                </div>
+
+                <div class="gallery-item" onclick="openModal(this)">
+                    <img src="bms_relay_module/Photo 06-01-26, 19 13 41.jpg" alt="Power Distribution">
+                    <div class="gallery-caption">
+                        <div class="caption-title">Power Distribution</div>
+                        <div class="caption-desc">AC-DC power supply and distribution network</div>
+                    </div>
+                </div>
+
+                <div class="gallery-item" onclick="openModal(this)">
+                    <img src="bms_relay_module/Photo 06-01-26, 19 13 50.jpg" alt="Wiring System">
+                    <div class="gallery-caption">
+                        <div class="caption-title">Wiring Architecture</div>
+                        <div class="caption-desc">Professional wiring and connection layout</div>
+                    </div>
+                </div>
+
+                <div class="gallery-item" onclick="openModal(this)">
+                    <img src="bms_relay_module/Photo 06-01-26, 19 15 10.jpg" alt="Terminal Blocks">
+                    <div class="gallery-caption">
+                        <div class="caption-title">Terminal Connections</div>
+                        <div class="caption-desc">High-current terminal blocks for load connections</div>
+                    </div>
+                </div>
+
+                <div class="gallery-item" onclick="openModal(this)">
+                    <img src="bms_relay_module/Photo 06-01-26, 19 15 12.jpg" alt="Control Circuit">
+                    <div class="gallery-caption">
+                        <div class="caption-title">Control Circuit Detail</div>
+                        <div class="caption-desc">Microcontroller and driver circuitry close-up</div>
+                    </div>
+                </div>
+
+                <div class="gallery-item" onclick="openModal(this)">
+                    <img src="bms_relay_module/Photo 06-01-26, 19 15 24.jpg" alt="Complete Assembly">
+                    <div class="gallery-caption">
+                        <div class="caption-title">Complete Assembly</div>
+                        <div class="caption-desc">Fully assembled system ready for testing</div>
+                    </div>
+                </div>
+
+                <div class="gallery-item" onclick="openModal(this)">
+                    <img src="bms_relay_module/Photo 06-01-26, 19 15 46.jpg" alt="Side Profile">
+                    <div class="gallery-caption">
+                        <div class="caption-title">Side Profile View</div>
+                        <div class="caption-desc">Compact design fitting standard wall boxes</div>
+                    </div>
+                </div>
+
+                <div class="gallery-item" onclick="openModal(this)">
+                    <img src="bms_relay_module/Photo 06-01-26, 19 16 10.jpg" alt="Connector Array">
+                    <div class="gallery-caption">
+                        <div class="caption-title">Connector Array</div>
+                        <div class="caption-desc">Multiple I/O connectors for system expansion</div>
+                    </div>
+                </div>
+
+                <div class="gallery-item" onclick="openModal(this)">
+                    <img src="bms_relay_module/Photo 06-01-26, 19 16 20.jpg" alt="Testing Setup">
+                    <div class="gallery-caption">
+                        <div class="caption-title">Testing Configuration</div>
+                        <div class="caption-desc">Load testing and validation setup</div>
+                    </div>
+                </div>
+
+                <div class="gallery-item" onclick="openModal(this)">
+                    <img src="bms_relay_module/Photo 06-01-26, 19 16 27.jpg" alt="Top View">
+                    <div class="gallery-caption">
+                        <div class="caption-title">Top View Assembly</div>
+                        <div class="caption-desc">Overview of complete board layout</div>
+                    </div>
+                </div>
+
+                <div class="gallery-item" onclick="openModal(this)">
+                    <img src="bms_relay_module/Photo 06-01-26, 19 16 32.jpg" alt="System Integration">
+                    <div class="gallery-caption">
+                        <div class="caption-title">System Integration</div>
+                        <div class="caption-desc">Final product ready for deployment</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- CTA Section -->
+        <div class="cta-section">
+            <h2>Interested in This Project?</h2>
+            <p>Let's discuss how we can create innovative embedded solutions for your needs</p>
+            <a href="index.html#contact" class="btn">Get In Touch</a>
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal" id="imageModal" onclick="closeModal()">
+        <div class="modal-content">
+            <span class="modal-close" onclick="closeModal(event)">&times;</span>
+            <img id="modalImage" src="" alt="Full size image">
+        </div>
+    </div>
+
+    <script>
+        function openModal(element) {
+            const modal = document.getElementById('imageModal');
+            const modalImg = document.getElementById('modalImage');
+            const img = element.querySelector('img');
+            
+            modal.classList.add('active');
+            modalImg.src = img.src;
+            modalImg.alt = img.alt;
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal(event) {
+            if (event) event.stopPropagation();
+            const modal = document.getElementById('imageModal');
+            modal.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                closeModal();
+            }
+        });
+    </script>
+</body>
+</html>
