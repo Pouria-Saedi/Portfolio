@@ -9,20 +9,21 @@
     <meta name="format-detection" content="telephone=no">
     <meta name="description" content="I'm an embedded engineer who designs intelligent systems that bridge the physical and digital worlds.">
     <meta name="robots" content="index,follow">
-    <title>Milan Embedded Engineer | Pouria Saedi</title>
+    <title>Pouria Saedi | Portfolio</title>
+    <link rel="icon" type="image/svg+xml" href="PS_LOGO.svg">
     <link href="https://fonts.googleapis.com/css?family=Rammetto+One&display=swap" rel="stylesheet">
     <style>
         /* CSS Variables */
         :root {
             --padding: 6rem 10%;
             --padding-lg: 3rem;
-            --itemWidth: 13.25rem;
+            --itemWidth: 13.333rem;
             --itemHeight: 20rem;
         }
 
         @media screen and (min-width: 768px) {
             :root {
-                --itemWidth: 17.8rem;
+                --itemWidth: 17.333rem;
                 --itemHeight: 26rem;
             }
         }
@@ -85,13 +86,12 @@
             line-height: 1.35;
             letter-spacing: -0.4px;
             color: #333;
+            transition: background-color 0.5s cubic-bezier(0.4, 0, 0.2, 1), color 0.5s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
-        @media (prefers-color-scheme: dark) {
-            body {
-                background-color: #333;
-                color: #fff;
-            }
+        body.dark-mode {
+            background-color: #333;
+            color: #fff;
         }
 
         @media screen and (min-width: 768px) {
@@ -164,6 +164,7 @@
 
         p {
             margin: 0 0 1rem;
+            line-height: 1.6;
         }
 
         h2 {
@@ -257,18 +258,24 @@
             height: 2.25rem;
         }
 
-        .social-anchor svg {
+        .social-anchor svg,
+        .social-anchor img {
             width: 1.5rem;
             height: 1.5rem;
             fill: currentColor;
             z-index: 1;
             position: relative;
-            transition: fill 300ms cubic-bezier(0, 0, 0.2, 1);
+            transition: fill 300ms cubic-bezier(0, 0, 0.2, 1), filter 300ms cubic-bezier(0, 0, 0.2, 1);
         }
 
         .social-anchor:hover svg,
         .social-anchor:focus svg {
             fill: #fff;
+        }
+
+        .social-anchor:hover img,
+        .social-anchor:focus img {
+            filter: brightness(0) invert(1);
         }
 
         .social-anchor-circle {
@@ -289,15 +296,22 @@
             transform: scale(1);
         }
 
-        @media (prefers-color-scheme: dark) {
-            .social-anchor-circle {
-                background-color: #fff;
-            }
-            
-            .social-anchor:hover svg,
-            .social-anchor:focus svg {
-                fill: #333;
-            }
+        body.dark-mode .social-anchor-circle {
+            background-color: #fff;
+        }
+
+        body.dark-mode .social-anchor img {
+            filter: brightness(0) invert(1);
+        }
+        
+        body.dark-mode .social-anchor:hover svg,
+        body.dark-mode .social-anchor:focus svg {
+            fill: #333;
+        }
+
+        body.dark-mode .social-anchor:hover img,
+        body.dark-mode .social-anchor:focus img {
+            filter: brightness(0);
         }
 
         @media screen and (min-width: 500px) {
@@ -388,6 +402,25 @@
             margin-bottom: 1rem;
             pointer-events: none;
             font-size: 3rem;
+        }
+
+        .Icon-fallback.Icon--card.card-thumbnail {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            margin-bottom: 0;
+            font-size: inherit;
+            object-fit: cover;
+            z-index: 0;
+        }
+
+        .card-thumbnail + .card_title {
+            position: relative;
+            z-index: 1;
+            color: #fff;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
         }
 
         /* Shadow */
@@ -490,6 +523,21 @@
 
         .list-title {
             margin-bottom: 0.35rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .list-title .grad-icon {
+            width: 1.5rem;
+            height: 1.5rem;
+            display: inline-block;
+            vertical-align: middle;
+            transition: filter 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        body.dark-mode .list-title .grad-icon {
+            filter: brightness(0) invert(1);
         }
 
         .list-para {
@@ -503,17 +551,40 @@
             border-top: 1px solid #e0e0e0;
             font-size: 0.9rem;
             color: #666;
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            flex-wrap: wrap;
+            gap: 2rem;
         }
 
-        @media (prefers-color-scheme: dark) {
-            .footer {
-                border-top-color: #444;
-                color: #999;
-            }
+        body.dark-mode .footer {
+            border-top-color: #444;
+            color: #999;
+        }
+
+        .footer-content {
+            flex: 1;
         }
 
         .footer p {
             margin: 0.5rem 0;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .footer .location-icon {
+            width: 1.2rem;
+            height: 1.2rem;
+            transition: filter 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            opacity: 0.7;
+        }
+
+        body.dark-mode .footer .location-icon {
+            filter: invert(1);
+            opacity: 0.6;
         }
 
         .footer a {
@@ -523,6 +594,184 @@
 
         .footer a:hover {
             text-decoration: underline;
+        }
+
+        .footer-logo {
+            width: 5rem;
+            height: 5rem;
+            transition: filter 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            filter: brightness(0);
+            opacity: 0.7;
+        }
+
+        body.dark-mode .footer-logo {
+            filter: brightness(0) invert(1);
+            opacity: 0.6;
+        }
+
+        .footer-social-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+            margin-left: -0.65rem;
+        }
+
+        .footer-social-anchor {
+            position: relative;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 2.5rem;
+            height: 2.5rem;
+            cursor: pointer;
+        }
+
+        .footer-social-anchor svg,
+        .footer-social-anchor img {
+            width: 1.2rem;
+            height: 1.2rem;
+            fill: currentColor;
+            z-index: 1;
+            position: relative;
+            transition: fill 300ms cubic-bezier(0, 0, 0.2, 1), filter 300ms cubic-bezier(0, 0, 0.2, 1);
+        }
+
+        .footer-social-anchor:hover svg,
+        .footer-social-anchor:focus svg {
+            fill: #fff;
+        }
+
+        .footer-social-anchor:hover img,
+        .footer-social-anchor:focus img {
+            filter: brightness(0) invert(1);
+        }
+
+        .footer-social-anchor-circle {
+            position: absolute;
+            background-color: #333;
+            left: 0;
+            right: 0;
+            top: 0;
+            bottom: 0;
+            border-radius: 50%;
+            transform: scale(0);
+            transition: transform 300ms cubic-bezier(0, 0, 0.2, 1);
+            z-index: 0;
+        }
+
+        .footer-social-anchor:hover .footer-social-anchor-circle,
+        .footer-social-anchor:focus .footer-social-anchor-circle {
+            transform: scale(1);
+        }
+
+        body.dark-mode .footer-social-anchor-circle {
+            background-color: #fff;
+        }
+
+        body.dark-mode .footer-social-anchor img {
+            filter: brightness(0) invert(1);
+        }
+
+        body.dark-mode .footer-social-anchor:hover svg,
+        body.dark-mode .footer-social-anchor:focus svg {
+            fill: #333;
+        }
+
+        body.dark-mode .footer-social-anchor:hover img,
+        body.dark-mode .footer-social-anchor:focus img {
+            filter: brightness(0);
+        }
+
+        @media screen and (max-width: 768px) {
+            .footer {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+            }
+            
+            .footer-logo {
+                margin-top: 1rem;
+            }
+        }
+
+        /* Theme Toggle Button */
+        .theme-toggle {
+            position: fixed;
+            top: 2rem;
+            right: 2rem;
+            width: 3rem;
+            height: 3rem;
+            border-radius: 50%;
+            background-color: #333;
+            border: 2px solid #333;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            z-index: 1000;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+        }
+
+        .theme-toggle:hover {
+            transform: scale(1.1) rotate(20deg);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+        }
+
+        .theme-toggle:active {
+            transform: scale(0.95);
+        }
+
+        body.dark-mode .theme-toggle {
+            background-color: #fff;
+            border-color: #fff;
+        }
+
+        .theme-toggle svg {
+            width: 1.5rem;
+            height: 1.5rem;
+            fill: #fff;
+            stroke: #fff;
+            stroke-width: 2;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+            transition: fill 0.3s cubic-bezier(0.4, 0, 0.2, 1), stroke 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        body.dark-mode .theme-toggle svg {
+            fill: #333;
+            stroke: #333;
+        }
+
+        /* Theme Transitions */
+        body {
+            transition: background-color 0.5s cubic-bezier(0.4, 0, 0.2, 1), color 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        body.dark-mode {
+            background-color: #333;
+            color: #fff;
+        }
+
+        .inner {
+            transition: background-color 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        body.dark-mode .inner {
+            background-color: #444;
+        }
+
+        .social-anchor-circle {
+            transition: background-color 0.5s cubic-bezier(0.4, 0, 0.2, 1), transform 300ms cubic-bezier(0, 0, 0.2, 1);
+        }
+
+        body.dark-mode .social-anchor-circle {
+            background-color: #fff;
+        }
+
+        body.dark-mode .social-anchor:hover svg,
+        body.dark-mode .social-anchor:focus svg {
+            fill: #333;
         }
     </style>
 </head>
@@ -557,6 +806,10 @@
                     </svg>
                     <span class="social-anchor-circle"></span>
                 </a>
+                <a href="resume.pdf" target="_blank" rel="noopener" class="social-anchor" aria-label="Resume">
+                    <img src="CV_ICON.png" alt="Resume">
+                    <span class="social-anchor-circle"></span>
+                </a>
             </div>
 
             <!-- Work Section -->
@@ -570,46 +823,25 @@
                         <div class="shadow"></div>
                         <div class="backdrop">
                             <div class="inner">
-                                <div class="card_content">
-                                    <div class="Icon-fallback Icon--card">🏠</div>
-                                    <h3 class="card_title">Smart Home System</h3>
-                                </div>
+                                <img src="smarthome-thumbnail.svg" alt="Smart Home" class="Icon-fallback Icon--card card-thumbnail">
                             </div>
                         </div>
                     </a>
 
-                    <a href="#" class="card">
+                    <a href="project-boat-panel.html" class="card">
                         <div class="shadow"></div>
                         <div class="backdrop">
                             <div class="inner">
-                                <div class="card_content">
-                                    <div class="Icon-fallback Icon--card">⛵</div>
-                                    <h3 class="card_title">SmartPanel</h3>
-                                </div>
+                                <img src="Smart_Boat_Panel.png" alt="Smart Boat Panel" class="Icon-fallback Icon--card card-thumbnail">
                             </div>
                         </div>
                     </a>
 
-                    <a href="#" class="card">
+                    <a href="project-lab-equipment.html" class="card">
                         <div class="shadow"></div>
                         <div class="backdrop">
                             <div class="inner">
-                                <div class="card_content">
-                                    <div class="Icon-fallback Icon--card">🔬</div>
-                                    <h3 class="card_title">Lab Equipment</h3>
-                                </div>
-                            </div>
-                        </div>
-                    </a>
-
-                    <a href="#" class="card">
-                        <div class="shadow"></div>
-                        <div class="backdrop">
-                            <div class="inner">
-                                <div class="card_content">
-                                    <div class="Icon-fallback Icon--card">🤖</div>
-                                    <h3 class="card_title">IoT Solutions</h3>
-                                </div>
+                                <img src="lab_equ_thumbnail.jpg" alt="Laboratory Equipment" class="Icon-fallback Icon--card card-thumbnail">
                             </div>
                         </div>
                     </a>
@@ -624,14 +856,14 @@
 
                 <div class="list">
                     <div>
-                        <h3 class="list-title">MS in Electrical Eng.</h3>
+                        <h3 class="list-title"><img src="grad.png" alt="Graduation" class="grad-icon"> MS in Electrical Eng.</h3>
                         <p class="list-para">Politecnico di Milano, Milan, Italy<br>Specialization in Embedded Systems</p>
                     </div>
                 </div>
 
                 <div class="list">
                     <div>
-                        <h3 class="list-title">BS in Electrical Eng.</h3>
+                        <h3 class="list-title"><img src="grad.png" alt="Graduation" class="grad-icon"> BS in Electrical Eng.</h3>
                         <p class="list-para">Ferdowsi University, Mashhad, Iran<br>Focus on Control Systems and Microcontroller Applications</p>
                     </div>
                 </div>
@@ -639,11 +871,75 @@
 
             <!-- Footer -->
             <footer class="footer">
-                <p>Milan, Italy</p>
-                <p><a href="mailto:pouria.saedi@mail.polimi.it">pouria.saedi@mail.polimi.it</a></p>
-                <p>© 2026 Pouria Saedi. All rights reserved.</p>
+                <div class="footer-content">
+                    <p>
+                        <img src="location_pin_007.svg" alt="Location" class="location-icon">
+                        Milan, Italy
+                    </p>
+                    <div class="footer-social-links">
+                        <a href="https://www.linkedin.com/in/pouria-saedi" target="_blank" rel="noopener" class="footer-social-anchor" aria-label="LinkedIn">
+                            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+                            </svg>
+                            <span class="footer-social-anchor-circle"></span>
+                        </a>
+                        <a href="mailto:pouria.saedi@mail.polimi.it" class="footer-social-anchor" aria-label="E-mail">
+                            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
+                            </svg>
+                            <span class="footer-social-anchor-circle"></span>
+                        </a>
+                        <a href="https://github.com/Pouria-Saedi" target="_blank" rel="noopener" class="footer-social-anchor" aria-label="Github">
+                            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/>
+                            </svg>
+                            <span class="footer-social-anchor-circle"></span>
+                        </a>
+                        <a href="resume.pdf" target="_blank" rel="noopener" class="footer-social-anchor" aria-label="Resume">
+                            <img src="CV_ICON.png" alt="Resume">
+                            <span class="footer-social-anchor-circle"></span>
+                        </a>
+                    </div>
+                    <p>2026, Pouria Saedi</p>
+                </div>
+                <img src="PS_LOGO.svg" alt="PS Logo" class="footer-logo">
             </footer>
         </div>
     </div>
+
+    <!-- Theme Toggle Button -->
+    <button class="theme-toggle" aria-label="Toggle theme" onclick="toggleTheme()">
+        <svg id="theme-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+        </svg>
+    </button>
+
+    <script>
+        // Check for saved theme preference or default to light mode
+        const currentTheme = localStorage.getItem('theme') || 'light';
+        const themeIcon = document.getElementById('theme-icon');
+        
+        if (currentTheme === 'dark') {
+            document.body.classList.add('dark-mode');
+            themeIcon.innerHTML = '<circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>';
+        }
+
+        function toggleTheme() {
+            const body = document.body;
+            const themeIcon = document.getElementById('theme-icon');
+            
+            body.classList.toggle('dark-mode');
+            
+            if (body.classList.contains('dark-mode')) {
+                // Sun icon for dark mode
+                themeIcon.innerHTML = '<circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>';
+                localStorage.setItem('theme', 'dark');
+            } else {
+                // Moon icon for light mode
+                themeIcon.innerHTML = '<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>';
+                localStorage.setItem('theme', 'light');
+            }
+        }
+    </script>
 </body>
 </html>
