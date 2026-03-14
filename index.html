@@ -423,6 +423,37 @@
             text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
         }
 
+        .card-label {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            z-index: 2;
+            padding: 2rem 0.9rem 0.7rem;
+            background: linear-gradient(to top, rgba(0,0,0,0.5) 0%, transparent 100%);
+            color: #fff;
+            font-size: 0.7rem;
+            font-weight: 500;
+            letter-spacing: 0.07em;
+            text-transform: uppercase;
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-between;
+        }
+
+        .card-label-arrow {
+            opacity: 0;
+            transform: translateX(-4px);
+            transition: opacity 300ms cubic-bezier(0, 0, 0.2, 1), transform 300ms cubic-bezier(0, 0, 0.2, 1);
+            font-size: 0.85rem;
+            line-height: 1;
+        }
+
+        .card:hover .card-label-arrow {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
         /* Shadow */
         .shadow {
             position: absolute;
@@ -823,8 +854,12 @@
                         <div class="shadow"></div>
                         <div class="backdrop">
                             <div class="inner">
-                                <img src="smarthome-thumbnail.svg" alt="Smart Home" class="Icon-fallback Icon--card card-thumbnail">
+                                <img src="smarthome_card_thumbnail.jpg" alt="Smart Home" class="Icon-fallback Icon--card card-thumbnail">
                             </div>
+                        </div>
+                        <div class="card-label">
+                            <span>Smart Home</span>
+                            <span class="card-label-arrow">&#8594;</span>
                         </div>
                     </a>
 
@@ -835,6 +870,10 @@
                                 <img src="Smart_Boat_Panel.png" alt="Smart Boat Panel" class="Icon-fallback Icon--card card-thumbnail">
                             </div>
                         </div>
+                        <div class="card-label">
+                            <span>Smart Boat Panel</span>
+                            <span class="card-label-arrow">&#8594;</span>
+                        </div>
                     </a>
 
                     <a href="project-lab-equipment.html" class="card">
@@ -843,6 +882,10 @@
                             <div class="inner">
                                 <img src="lab_equ_thumbnail.jpg" alt="Laboratory Equipment" class="Icon-fallback Icon--card card-thumbnail">
                             </div>
+                        </div>
+                        <div class="card-label">
+                            <span>Lab Equipment</span>
+                            <span class="card-label-arrow">&#8594;</span>
                         </div>
                     </a>
                 </div>
