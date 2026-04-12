@@ -418,6 +418,53 @@
                 margin-top: 1rem;
             }
         }
+
+        /* Project Meta */
+        .project-meta {
+            font-size: 0.85rem;
+            color: #666;
+            margin-bottom: 1.5rem;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.3rem;
+            align-items: center;
+        }
+
+        body.dark-mode .project-meta {
+            color: #aaa;
+        }
+
+        .meta-sep {
+            color: #bbb;
+        }
+
+        body.dark-mode .meta-sep {
+            color: #555;
+        }
+
+        /* Tech Tags */
+        .tags-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.45rem;
+            margin: 1.25rem 0 2rem;
+        }
+
+        .tag {
+            display: inline-block;
+            font-size: 0.74rem;
+            padding: 0.22rem 0.65rem;
+            background-color: #f0f0f0;
+            border-radius: 2rem;
+            color: #444;
+            letter-spacing: 0.01em;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        body.dark-mode .tag {
+            background-color: #3a3a3a;
+            color: #ccc;
+        }
     </style>
 </head>
 <body>
@@ -427,49 +474,73 @@
 
             <h1>Laboratory Equipment Design</h1>
 
-            <p>Custom-designed neuroscience research equipment developed during my work at Toos Bio Research. These precision instruments are essential tools for behavioral neuroscience studies, enabling accurate data collection and controlled experimental environments.</p>
+            <div class="project-meta">
+                <span>Lead Embedded Engineer — Sole</span>
+                <span class="meta-sep">·</span>
+                <span>Toos Bio Research Co.</span>
+                <span class="meta-sep">·</span>
+                <span>Mashhad, Iran</span>
+                <span class="meta-sep">·</span>
+                <span>Jan 2022 – Sep 2022</span>
+            </div>
+
+            <p>As the sole embedded engineer at Toos Bio Research, I owned firmware, PCB design, and hardware integration end-to-end across four concurrent lab-grade biomedical product lines. All devices are built around STM32 microcontrollers and deployed in active neuroscience research environments. Projects ranged from redesigning motor control and graphical interfaces for existing instruments to building a complete electrical system from scratch for a new animal isolator.</p>
+
+            <div class="tags-row">
+                <span class="tag">STM32 (F3 / F4 / F7)</span>
+                <span class="tag">C / C++</span>
+                <span class="tag">STM32 HAL</span>
+                <span class="tag">CubeMX</span>
+                <span class="tag">FreeRTOS</span>
+                <span class="tag">PCB Design</span>
+                <span class="tag">Motor Control</span>
+                <span class="tag">PWM &nbsp;·&nbsp; ADC &nbsp;·&nbsp; UART</span>
+                <span class="tag">HVAC Automation</span>
+                <span class="tag">Custom LCD UI</span>
+                <span class="tag">Biomedical Electronics</span>
+            </div>
 
             <div class="feature-list">
-                <h2>Research Applications</h2>
+                <h2>Product Lines</h2>
                 <ul>
-                    <li><strong>Eye Tracking System</strong> - High-precision monitoring of eye movements and pupil dilation for behavioral studies</li>
-                    <li><strong>Stereotaxic Frame</strong> - Precise positioning equipment for neuroscience procedures and electrode placement</li>
-                    <li><strong>Isolation Chamber</strong> - Controlled environment for eliminating external variables during experiments</li>
-                    <li><strong>Syringe Pump</strong> - Programmable fluid delivery system for precise dosing and timing control</li>
+                    <li><strong>Stereotaxic Device</strong> — Redesigned 3-axis motor control for quieter, smoother movement; overhauled graphical control interface</li>
+                    <li><strong>Syringe Pump</strong> — Resolved unreliable PCB layout and cabling; delivered clean, maintainable production platform</li>
+                    <li><strong>Animal Isolator</strong> — Full electrical system from scratch: automated HVAC (pressure, humidity, temperature), UV sterilisation, custom LCD with timed power management</li>
+                    <li><strong>Eye-Tracking System</strong> — Motor control, IR illumination, non-volatile position memory, battery management; collaborated with CV and mechanical teams</li>
                 </ul>
             </div>
 
-            <h2>Eye Tracking System</h2>
+            <h2>Stereotaxic Device</h2>
+            <p>Precision stereotaxic apparatus for 3D positioning control — essential for accurate electrode placement and targeted interventions in neuroscience procedures. I redesigned the motor control subsystem to eliminate audible resonance and positional jitter in the original design, achieving quieter and smoother 3-axis travel. I also overhauled the graphical UI to improve usability for researchers running multi-hour surgery sessions.</p>
             <div class="gallery">
-                <div class="gallery-item" style="grid-column: 1 / -1; max-width: 100%; aspect-ratio: auto;">
-                    <img src="LAB_EQUIPMENTS_PICs/eyetracker.jpg" alt="Eye Tracking System" loading="lazy">
+                <div class="gallery-item" style="grid-column: 1 / -1; aspect-ratio: auto;">
+                    <img src="LAB_EQUIPMENTS_PICs/stereotaxic.jpg" alt="Stereotaxic device — 3-axis positioning frame with redesigned STM32 motor control" loading="lazy">
                 </div>
             </div>
-            <p>Advanced eye tracking system designed for monitoring pupil dilation, gaze direction, and eye movement patterns in behavioral research. Features high-speed camera integration and real-time data processing capabilities.</p>
-
-            <h2>Stereotaxic Frame</h2>
-            <div class="gallery">
-                <div class="gallery-item" style="grid-column: 1 / -1; max-width: 100%; aspect-ratio: auto;">
-                    <img src="LAB_EQUIPMENTS_PICs/stereotaxic.jpg" alt="Stereotaxic Frame" loading="lazy">
-                </div>
-            </div>
-            <p>Precision stereotaxic apparatus providing three-dimensional positioning control for neuroscience research. Essential for accurate electrode placement and targeted interventions with micrometer-level precision.</p>
-
-            <h2>Isolation Chamber</h2>
-            <div class="gallery">
-                <div class="gallery-item" style="grid-column: 1 / -1; max-width: 100%; aspect-ratio: auto;">
-                    <img src="LAB_EQUIPMENTS_PICs/isolator.jpg" alt="Isolation Chamber" loading="lazy">
-                </div>
-            </div>
-            <p>Specialized isolation chamber designed to eliminate environmental variables during experiments. Features sound attenuation, controlled lighting, and environmental monitoring for reproducible experimental conditions.</p>
 
             <h2>Syringe Pump</h2>
+            <p>Programmable syringe pump for precise, timed fluid delivery in pharmacological and behavioral experiments. The previous production PCB had intermittent failures caused by layout and cabling issues — I resolved these, redesigned the board, and delivered a clean, maintainable platform suitable for long-term lab deployment and field servicing.</p>
             <div class="gallery">
-                <div class="gallery-item" style="grid-column: 1 / -1; max-width: 100%; aspect-ratio: auto;">
-                    <img src="LAB_EQUIPMENTS_PICs/syringe_pump.JPG" alt="Programmable Syringe Pump" loading="lazy">
+                <div class="gallery-item" style="grid-column: 1 / -1; aspect-ratio: auto;">
+                    <img src="LAB_EQUIPMENTS_PICs/syringe_pump.JPG" alt="Syringe pump — redesigned PCB with STM32 control" loading="lazy">
                 </div>
             </div>
-            <p>Programmable syringe pump system for precise fluid delivery in research applications. Offers customizable flow rates, timing protocols, and volume control essential for pharmacological studies and behavioral experiments.</p>
+
+            <h2>Animal Isolator</h2>
+            <p>I designed the entire electrical system from scratch for this small-animal containment and experiment chamber. The isolator provides a sterile, controlled environment for eliminating external variables during behavioral studies. My embedded system handles closed-loop HVAC control (pressure, humidity, and temperature sensors with independent actuators), timed UV sterilisation cycles, and a custom LCD control panel with intelligent power management to extend panel lifetime during idle periods.</p>
+            <div class="gallery">
+                <div class="gallery-item" style="grid-column: 1 / -1; aspect-ratio: auto;">
+                    <img src="LAB_EQUIPMENTS_PICs/isolator.jpg" alt="Animal isolator — automated HVAC, UV sterilisation, and custom STM32 LCD control" loading="lazy">
+                </div>
+            </div>
+
+            <h2>Eye-Tracking System</h2>
+            <p>High-speed eye movement monitoring system for behavioral neuroscience studies, measuring pupil dilation, gaze direction, and saccade patterns. I implemented the motor control system for precise camera arm positioning, the IR LED illumination driver, non-volatile memory for saving calibration positions across power cycles, and battery management for portable field use. The project involved close collaboration with the computer-vision software team and the mechanical engineering team.</p>
+            <div class="gallery">
+                <div class="gallery-item" style="grid-column: 1 / -1; aspect-ratio: auto;">
+                    <img src="LAB_EQUIPMENTS_PICs/eyetracker.jpg" alt="Eye-tracking system — IR illumination, high-speed camera mount, and STM32 motor-driven positioning arm" loading="lazy">
+                </div>
+            </div>
 
             <!-- Footer -->
             <footer class="footer">

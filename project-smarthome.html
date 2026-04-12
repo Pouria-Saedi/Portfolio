@@ -418,6 +418,107 @@
                 margin-top: 1rem;
             }
         }
+
+        /* Project Meta */
+        .project-meta {
+            font-size: 0.85rem;
+            color: #666;
+            margin-bottom: 1.5rem;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.3rem;
+            align-items: center;
+        }
+
+        body.dark-mode .project-meta {
+            color: #aaa;
+        }
+
+        .meta-sep {
+            color: #bbb;
+        }
+
+        body.dark-mode .meta-sep {
+            color: #555;
+        }
+
+        /* Tech Tags */
+        .tags-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.45rem;
+            margin: 1.25rem 0 2rem;
+        }
+
+        .tag {
+            display: inline-block;
+            font-size: 0.74rem;
+            padding: 0.22rem 0.65rem;
+            background-color: #f0f0f0;
+            border-radius: 2rem;
+            color: #444;
+            letter-spacing: 0.01em;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        body.dark-mode .tag {
+            background-color: #3a3a3a;
+            color: #ccc;
+        }
+
+        /* Module Cards */
+        .module-card {
+            border: 1px solid #e8e8e8;
+            border-radius: 6px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            transition: border-color 0.3s ease;
+        }
+
+        body.dark-mode .module-card {
+            border-color: #484848;
+        }
+
+        .module-header {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            margin-bottom: 0.9rem;
+        }
+
+        .module-number {
+            font-family: "Rammetto One", cursive;
+            font-size: 1.4rem;
+            color: #d0d0d0;
+            flex-shrink: 0;
+            line-height: 1;
+            padding-top: 3px;
+            transition: color 0.3s ease;
+        }
+
+        body.dark-mode .module-number {
+            color: #4a4a4a;
+        }
+
+        .module-title {
+            font-size: 1rem;
+            font-weight: 600;
+            margin: 0 0 0.2rem;
+        }
+
+        .module-subtitle {
+            font-size: 0.78rem;
+            color: #999;
+            margin: 0;
+        }
+
+        body.dark-mode .module-subtitle {
+            color: #666;
+        }
+
+        .module-card ul {
+            margin-bottom: 0;
+        }
     </style>
 </head>
 <body>
@@ -425,119 +526,107 @@
         <div class="container">
             <a href="index.html" class="back-link">Back to Portfolio</a>
 
-            <h1>Smart Home System</h1>
+            <h1>MeshLink — Smart Home IoT Platform</h1>
 
-            <p>A comprehensive BLE mesh network smart home system based on ESP32 microcontrollers. The system enables seamless control through a mobile application with server connectivity for advanced IoT integration.</p>
+            <div class="project-meta">
+                <span>Co-Founder &amp; Co-Lead Engineer</span>
+                <span class="meta-sep">·</span>
+                <span>3-person startup</span>
+                <span class="meta-sep">·</span>
+                <span>Apr 2024 – Mar 2025</span>
+            </div>
 
-            <div class="module-list">
-                <h2>System Modules</h2>
-                <ul>
-                    <li><strong>Smart AI Voice Command Module</strong> - Voice-activated control interface</li>
-                    <li><strong>Smart Camera</strong> - Security and monitoring capabilities</li>
-                    <li><strong>Smart Switch</strong> - 1-gang to 4-gang configurations</li>
-                    <li><strong>Smart Plug</strong> - Remote power control</li>
-                    <li><strong>Smart Sensors</strong> - Temperature, humidity, air quality monitoring</li>
-                </ul>
+            <p>Co-founded and co-led the engineering of an end-to-end smart home IoT ecosystem built on a self-healing Bluetooth Mesh network. The platform operates fully offline with local control and supports remote management via MQTT. I architected the full embedded system, wrote all firmware in ESP-IDF, designed five prototype PCBs, and built the cross-platform Flutter mobile app as sole developer. A standout feature is the on-device wake-word detection that runs entirely on the MCU — no cloud calls, no latency.</p>
+
+            <div class="tags-row">
+                <span class="tag">ESP32 / ESP32-S3</span>
+                <span class="tag">ESP-IDF</span>
+                <span class="tag">Bluetooth Mesh</span>
+                <span class="tag">MQTT</span>
+                <span class="tag">Flutter</span>
+                <span class="tag">On-device AI</span>
+                <span class="tag">Wake-word Detection</span>
+                <span class="tag">I²S &nbsp;·&nbsp; I²C &nbsp;·&nbsp; SPI</span>
+                <span class="tag">EasyEDA</span>
+                <span class="tag">PCB Design</span>
             </div>
 
             <h2>Complete System Overview</h2>
+            <p>Five hardware modules form a self-healing BT Mesh network. Each node maintains local state and operates offline; when connectivity is restored the mesh reconciles state automatically. The MQTT bridge enables full remote control and sensor monitoring from the Flutter app over Wi-Fi.</p>
             <div class="gallery">
-                <div class="gallery-item" style="grid-column: 1 / -1; max-width: 800px; margin: 0 auto;">
-                    <img src="Modules.jpg" alt="All Smart Home Modules" loading="lazy">
+                <div class="gallery-item" style="grid-column: 1 / -1; max-width: 820px; margin: 0 auto; aspect-ratio: auto;">
+                    <img src="Modules.jpg" alt="All five MeshLink hardware modules assembled" loading="lazy">
                 </div>
             </div>
 
-            <h2>Switch Module Gallery</h2>
-
+            <h2>Smart Touch Switch</h2>
+            <p>Flush-mount 3-gang / 4-gang wall switch built as a two-PCB stack: a top controller/touch board and a bottom mains relay board, mated via four dual-pin inter-board headers. An OR-gate logic layer (SN74LVC1G32) allows either a physical capacitive touch or an incoming BT Mesh command to fire a relay independently — so the switch remains functional whether the MCU processes a packet or not.</p>
+            <ul>
+                <li><strong>MCU:</strong> ESP32-S3-WROOM-1-N16 (Wi-Fi + BT Mesh, 16 MB flash) with USB-D+/D− for native USB</li>
+                <li><strong>Touch sensing:</strong> 4× TTP223-TD capacitive touch ICs (one per gang) with supplementary ring pads for extended touch area</li>
+                <li><strong>Logic:</strong> 4× SN74LVC1G32DBVR OR gates combining touch and wireless relay signals; 10 kΩ pull-downs ensure defined logic low</li>
+                <li><strong>Relay drivers:</strong> 4× SS8050 NPN transistors with 1 kΩ base resistors and flyback diodes; 4× HRS3FNH SPDT relays on mains board</li>
+                <li><strong>LEDs:</strong> 6× WS2812B-2020 addressable RGB LEDs for per-gang status indication</li>
+                <li><strong>Mains supply:</strong> HLK-3M05B isolated AC-DC (230 V → 5 V / 600 mA)</li>
+                <li><strong>Logic supply:</strong> XL1509-3.3 synchronous step-down (5 V → 3.3 V)</li>
+                <li><strong>Programming:</strong> Micro-USB connector; dedicated BOOT button with strapping resistors per ESP32-S3 spec</li>
+            </ul>
             <div class="gallery">
-                <div class="gallery-item">
-                    <img src="SWITCH_MODULE_PICs/IMG_0986.jpg" alt="Switch Module" loading="lazy">
-                </div>
-                <div class="gallery-item">
-                    <img src="SWITCH_MODULE_PICs/IMG_0985.jpg" alt="Switch Module" loading="lazy">
-                </div>
-                <div class="gallery-item">
-                    <img src="SWITCH_MODULE_PICs/IMG_0984.jpg" alt="Switch Module" loading="lazy">
-                </div>
-                <div class="gallery-item">
-                    <img src="SWITCH_MODULE_PICs/IMG_0983.jpg" alt="Switch Module" loading="lazy">
-                </div>
-                <div class="gallery-item">
-                    <img src="SWITCH_MODULE_PICs/IMG_0982.jpg" alt="Switch Module" loading="lazy">
-                </div>
-                <div class="gallery-item">
-                    <img src="SWITCH_MODULE_PICs/IMG_0981.jpg" alt="Switch Module" loading="lazy">
-                </div>
-                <div class="gallery-item">
-                    <img src="SWITCH_MODULE_PICs/IMG_0980.jpg" alt="Switch Module" loading="lazy">
-                </div>
-                <div class="gallery-item">
-                    <img src="SWITCH_MODULE_PICs/IMG_0979.jpg" alt="Switch Module" loading="lazy">
-                </div>
-                <div class="gallery-item">
-                    <img src="SWITCH_MODULE_PICs/IMG_0978.jpg" alt="Switch Module" loading="lazy">
-                </div>
-                <div class="gallery-item">
-                    <img src="SWITCH_MODULE_PICs/IMG_0977.jpg" alt="Switch Module" loading="lazy">
-                </div>
-                <div class="gallery-item">
-                    <img src="SWITCH_MODULE_PICs/IMG_0976.jpg" alt="Switch Module" loading="lazy">
-                </div>
-                <div class="gallery-item">
-                    <img src="SWITCH_MODULE_PICs/IMG_0975.jpg" alt="Switch Module" loading="lazy">
-                </div>
-                <div class="gallery-item">
-                    <img src="SWITCH_MODULE_PICs/IMG_0974.jpg" alt="Switch Module" loading="lazy">
-                </div>
+                <div class="gallery-item"><img src="SWITCH_MODULE_PICs/IMG_0986.jpg" alt="Smart switch — assembled front face" loading="lazy"></div>
+                <div class="gallery-item"><img src="SWITCH_MODULE_PICs/IMG_0985.jpg" alt="Smart switch — side profile" loading="lazy"></div>
+                <div class="gallery-item"><img src="SWITCH_MODULE_PICs/IMG_0984.jpg" alt="Smart switch — touch PCB close-up" loading="lazy"></div>
+                <div class="gallery-item"><img src="SWITCH_MODULE_PICs/IMG_0983.jpg" alt="Switch module — touch pad area" loading="lazy"></div>
+                <div class="gallery-item"><img src="SWITCH_MODULE_PICs/IMG_0982.jpg" alt="Switch module — relay board" loading="lazy"></div>
+                <div class="gallery-item"><img src="SWITCH_MODULE_PICs/IMG_0981.jpg" alt="Switch module — stacked PCB assembly" loading="lazy"></div>
+                <div class="gallery-item"><img src="SWITCH_MODULE_PICs/IMG_0980.jpg" alt="Switch module — inter-board connectors" loading="lazy"></div>
+                <div class="gallery-item"><img src="SWITCH_MODULE_PICs/IMG_0979.jpg" alt="Switch module overview" loading="lazy"></div>
+                <div class="gallery-item"><img src="SWITCH_MODULE_PICs/IMG_0978.jpg" alt="Switch — angle view" loading="lazy"></div>
+                <div class="gallery-item"><img src="SWITCH_MODULE_PICs/IMG_0977.jpg" alt="Switch — wall-plate mock-up" loading="lazy"></div>
+                <div class="gallery-item"><img src="SWITCH_MODULE_PICs/IMG_0976.jpg" alt="Switch module disassembled" loading="lazy"></div>
+                <div class="gallery-item"><img src="SWITCH_MODULE_PICs/IMG_0975.jpg" alt="Switch PCB — top view" loading="lazy"></div>
+                <div class="gallery-item"><img src="SWITCH_MODULE_PICs/IMG_0974.jpg" alt="Switch PCB — bottom view" loading="lazy"></div>
             </div>
 
-            <h2>Plug Module Gallery</h2>
-
+            <h2>Smart Plug</h2>
+            <p>Wi-Fi + Bluetooth Mesh smart plug with real-time power monitoring and a 3-digit 7-segment display. A two-PCB stacked assembly: a mains power/relay board and an ESP32 display/controller board connected via a 5-pin inter-board header (5 V, GND, REL, SAM, AMP). The ACS712 Hall-effect sensor provides ±30 A current measurement; a 1 MΩ / 10 kΩ resistor divider gives zero-crossing and RMS voltage estimation.</p>
+            <ul>
+                <li><strong>MCU:</strong> ESP32-WROOM-32-N4 (Wi-Fi + Bluetooth)</li>
+                <li><strong>Mains supply:</strong> HLK-PM01 isolated AC-DC (230 V → 5 V)</li>
+                <li><strong>Load switching:</strong> 5 V relay driven by SS8050 NPN with 1N4448W flyback diode</li>
+                <li><strong>Current sensing:</strong> ACS712ELCTR-30A Hall-effect sensor; RC low-pass filter (1 kΩ + 100 nF) + envelope circuit</li>
+                <li><strong>Voltage sampling:</strong> 1 MΩ / 10 kΩ divider with 10 µF smoothing cap for zero-crossing / RMS estimation</li>
+                <li><strong>Display:</strong> FJ5361AH 3-digit 7-segment common-cathode driven directly from ESP32 GPIOs</li>
+                <li><strong>Logic supply:</strong> AMS1117-3.3 LDO (5 V → 3.3 V) with 4× 22 µF bulk caps</li>
+                <li><strong>User input:</strong> Toggle switch + momentary push-button with 10 kΩ pull-up; LDR light sensor</li>
+            </ul>
             <div class="gallery">
-                <div class="gallery-item">
-                    <img src="PLUG_MODULE_PICs/IMG_1005.jpg" alt="Plug Module" loading="lazy">
-                </div>
-                <div class="gallery-item">
-                    <img src="PLUG_MODULE_PICs/IMG_1004.jpg" alt="Plug Module" loading="lazy">
-                </div>
-                <div class="gallery-item">
-                    <img src="PLUG_MODULE_PICs/IMG_1003.jpg" alt="Plug Module" loading="lazy">
-                </div>
-                <div class="gallery-item">
-                    <img src="PLUG_MODULE_PICs/IMG_0993.jpg" alt="Plug Module" loading="lazy">
-                </div>
-                <div class="gallery-item">
-                    <img src="PLUG_MODULE_PICs/IMG_0991.jpg" alt="Plug Module" loading="lazy">
-                </div>
-                <div class="gallery-item">
-                    <img src="PLUG_MODULE_PICs/IMG_0990.jpg" alt="Plug Module" loading="lazy">
-                </div>
-                <div class="gallery-item">
-                    <img src="PLUG_MODULE_PICs/IMG_0989.jpg" alt="Plug Module" loading="lazy">
-                </div>
-                <div class="gallery-item">
-                    <img src="PLUG_MODULE_PICs/IMG_0988.jpg" alt="Plug Module" loading="lazy">
-                </div>
-                <div class="gallery-item">
-                    <img src="PLUG_MODULE_PICs/IMG_0987.jpg" alt="Plug Module" loading="lazy">
-                </div>
+                <div class="gallery-item"><img src="PLUG_MODULE_PICs/IMG_1005.jpg" alt="Smart plug — assembled" loading="lazy"></div>
+                <div class="gallery-item"><img src="PLUG_MODULE_PICs/IMG_1004.jpg" alt="Smart plug — 7-segment display active" loading="lazy"></div>
+                <div class="gallery-item"><img src="PLUG_MODULE_PICs/IMG_1003.jpg" alt="Smart plug — front view" loading="lazy"></div>
+                <div class="gallery-item"><img src="PLUG_MODULE_PICs/IMG_0993.jpg" alt="Smart plug — controller PCB detail" loading="lazy"></div>
+                <div class="gallery-item"><img src="PLUG_MODULE_PICs/IMG_0991.jpg" alt="Smart plug — power / relay board" loading="lazy"></div>
+                <div class="gallery-item"><img src="PLUG_MODULE_PICs/IMG_0990.jpg" alt="Smart plug — ACS712 current sensor" loading="lazy"></div>
+                <div class="gallery-item"><img src="PLUG_MODULE_PICs/IMG_0989.jpg" alt="Smart plug — stacked PCB boards" loading="lazy"></div>
+                <div class="gallery-item"><img src="PLUG_MODULE_PICs/IMG_0988.jpg" alt="Smart plug — relay and AC terminals" loading="lazy"></div>
+                <div class="gallery-item"><img src="PLUG_MODULE_PICs/IMG_0987.jpg" alt="Smart plug — enclosure test fit" loading="lazy"></div>
             </div>
 
-            <h2>AI Voice Command Module Gallery</h2>
-
+            <h2>AI Voice Module</h2>
+            <p>Fully offline voice control node — no cloud calls, no remote inference latency. The ESP32-S3's dual-core Xtensa LX7 paired with 8 MB OPI PSRAM provides enough headroom to run the I²S microphone capture pipeline, the custom wake-word detection model inference loop, and BT Mesh stack messaging simultaneously. Audio feedback is handled by a MAX98357 Class D I²S amplifier driving an onboard speaker.</p>
+            <ul>
+                <li><strong>MCU:</strong> ESP32-S3-WROOM-1-N16R8 — 16 MB flash + 8 MB OPI PSRAM for on-device AI inference</li>
+                <li><strong>Microphone:</strong> I²S MEMS microphone (SD, WS, SCK, L/R lines to ESP32-S3 I²S peripheral)</li>
+                <li><strong>Speaker output:</strong> MAX98357 Class D I²S amplifier (DIN, BCLK, LRC) → OUT+ / OUT− speaker pads</li>
+                <li><strong>Power supply:</strong> MP1584 synchronous buck (5 V → 3.3 V) with 470 µF bulk cap for stability</li>
+                <li><strong>USB:</strong> USB bridge IC for firmware flashing; slide switch for power cycling</li>
+                <li><strong>LEDs:</strong> 4× WS2812B addressable RGB LEDs in daisy-chain for visual wake-word feedback</li>
+                <li><strong>Form factor:</strong> Octagonal two-layer PCB with chamfered corners and four mounting holes</li>
+            </ul>
             <div class="gallery">
-                <div class="gallery-item">
-                    <img src="AI_MODULE_PICs/IMG_0998.jpg" alt="AI Voice Command Module" loading="lazy">
-                </div>
-                <div class="gallery-item">
-                    <img src="AI_MODULE_PICs/IMG_0997.jpg" alt="AI Voice Command Module" loading="lazy">
-                </div>
-                <div class="gallery-item">
-                    <img src="AI_MODULE_PICs/IMG_0996.jpg" alt="AI Voice Command Module" loading="lazy">
-                </div>
-                <div class="gallery-item">
-                    <img src="AI_MODULE_PICs/IMG_0995.jpg" alt="AI Voice Command Module" loading="lazy">
-                </div>
+                <div class="gallery-item"><img src="AI_MODULE_PICs/IMG_0998.jpg" alt="AI voice module — assembled octagonal PCB" loading="lazy"></div>
+                <div class="gallery-item"><img src="AI_MODULE_PICs/IMG_0997.jpg" alt="AI voice module — top view showing MEMS mic and RGB LEDs" loading="lazy"></div>
+                <div class="gallery-item"><img src="AI_MODULE_PICs/IMG_0996.jpg" alt="AI voice module — MAX98357 amplifier area" loading="lazy"></div>
+                <div class="gallery-item"><img src="AI_MODULE_PICs/IMG_0995.jpg" alt="AI voice module — ESP32-S3 and power section" loading="lazy"></div>
             </div>
 
             <!-- Footer -->

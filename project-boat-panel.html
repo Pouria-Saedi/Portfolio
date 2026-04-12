@@ -181,14 +181,26 @@
             position: relative;
             overflow: hidden;
             background-color: #f5f5f5;
-            border-radius: 4px;
+            border-radius: 6px;
             aspect-ratio: 4/3;
-            transition: transform 300ms cubic-bezier(0, 0, 0.2, 1);
+            border: 1px solid rgba(0, 0, 0, 0.07);
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
+            transition: transform 300ms cubic-bezier(0, 0, 0.2, 1),
+                        box-shadow 300ms cubic-bezier(0, 0, 0.2, 1);
         }
 
         .gallery-item:hover {
             transform: translateY(-4px);
-            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.13);
+        }
+
+        body.dark-mode .gallery-item {
+            border-color: rgba(255, 255, 255, 0.07);
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.25);
+        }
+
+        body.dark-mode .gallery-item:hover {
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.45);
         }
 
         .gallery-item img,
@@ -418,6 +430,120 @@
                 margin-top: 1rem;
             }
         }
+
+        /* Project Meta */
+        .project-meta {
+            font-size: 0.85rem;
+            color: #666;
+            margin-bottom: 1.5rem;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.3rem;
+            align-items: center;
+        }
+
+        body.dark-mode .project-meta {
+            color: #aaa;
+        }
+
+        .meta-sep {
+            color: #bbb;
+        }
+
+        body.dark-mode .meta-sep {
+            color: #555;
+        }
+
+        /* Tech Tags */
+        .tags-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.45rem;
+            margin: 1.25rem 0 2rem;
+        }
+
+        .tag {
+            display: inline-block;
+            font-size: 0.74rem;
+            padding: 0.22rem 0.65rem;
+            background-color: #f0f0f0;
+            border-radius: 2rem;
+            color: #444;
+            letter-spacing: 0.01em;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        body.dark-mode .tag {
+            background-color: #3a3a3a;
+            color: #ccc;
+        }
+
+        /* Module Cards */
+        .module-card {
+            border: 1px solid #e8e8e8;
+            border-radius: 6px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            transition: border-color 0.3s ease;
+        }
+
+        body.dark-mode .module-card {
+            border-color: #484848;
+        }
+
+        .module-header {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            margin-bottom: 0.9rem;
+        }
+
+        .module-number {
+            font-family: "Rammetto One", cursive;
+            font-size: 1.4rem;
+            color: #d0d0d0;
+            flex-shrink: 0;
+            line-height: 1;
+            padding-top: 3px;
+            transition: color 0.3s ease;
+        }
+
+        body.dark-mode .module-number {
+            color: #4a4a4a;
+        }
+
+        .module-title {
+            font-size: 1rem;
+            font-weight: 600;
+            margin: 0 0 0.2rem;
+        }
+
+        .module-subtitle {
+            font-size: 0.78rem;
+            color: #999;
+            margin: 0;
+        }
+
+        body.dark-mode .module-subtitle {
+            color: #666;
+        }
+
+        .module-card ul {
+            margin-bottom: 0;
+        }
+
+        /* Section label */
+        .section-label {
+            font-size: 0.72rem;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: #999;
+            margin-bottom: 0.5rem;
+        }
+
+        body.dark-mode .section-label {
+            color: #666;
+        }
     </style>
 </head>
 <body>
@@ -427,135 +553,210 @@
 
             <h1>Smart Boat Panel</h1>
 
-            <p>An advanced marine control system designed for modern catamarans and boats, featuring intelligent automation, wireless communication, and comprehensive monitoring capabilities. This system replaces traditional marine electrical panels with a smart, user-friendly interface.</p>
+            <div class="project-meta">
+                <span>Sole Embedded &amp; Hardware Engineer</span>
+                <span class="meta-sep">·</span>
+                <span>OTTI s.r.l.s — Marine Electronics</span>
+                <span class="meta-sep">·</span>
+                <span>Milan, Italy</span>
+                <span class="meta-sep">·</span>
+                <span>May 2024 – Feb 2025</span>
+            </div>
+
+            <p>End-to-end redesign of the smart electrical panel system for sailing vessels under 24 m — the subject of my M.Sc. thesis at Politecnico di Milano. As the sole embedded and hardware engineer, I independently designed, validated, and wrote firmware for three production-intent PCBs. All boards are built around the ESP32, powered from 12 V / 24 V marine battery rails, and drawn in EasyEDA.</p>
+
+            <div class="tags-row">
+                <span class="tag">ESP32</span>
+                <span class="tag">ESP-IDF</span>
+                <span class="tag">NMEA 2000</span>
+                <span class="tag">CAN Bus</span>
+                <span class="tag">LVGL</span>
+                <span class="tag">GSM / 4G LTE</span>
+                <span class="tag">I²C · SPI · UART</span>
+                <span class="tag">Buck Converter</span>
+                <span class="tag">EasyEDA</span>
+                <span class="tag">PCB Design</span>
+                <span class="tag">Marine Electronics</span>
+            </div>
 
             <div class="gallery">
                 <div class="gallery-item" style="grid-column: 1 / -1; max-width: 100%; aspect-ratio: auto;">
-                    <img src="SMART_BOAT_PANEL_PICs/IMG_3940.JPG" alt="Smart Boat Panel Modules" loading="lazy">
+                    <img src="SMART_BOAT_PANEL_PICs/IMG_3940.JPG" alt="All three production PCB modules assembled" loading="lazy">
                 </div>
             </div>
 
-            <div class="feature-list">
-                <h2>Key Features</h2>
+            <h2>Context &amp; Problem</h2>
+            <p>Traditional marine electrical panels rely on static wiring, fixed-logic toggles, and legacy analog gauges — difficult to maintain, impossible to monitor remotely, and fragile under marine vibration and salt air. OTTI s.r.l.s commissioned a full rearchitecture: intelligent switching with a hardware fail-safe, remote cellular monitoring via 4G/LTE, real-time vessel data over the NMEA 2000 bus, and modernised instrument readouts backed by circular OLEDs running LVGL.</p>
+
+            <div class="gallery">
+                <div class="gallery-item" style="grid-column: 1 / -1; max-width: 820px; margin: 0 auto; aspect-ratio: auto;">
+                    <img src="SMART_BOAT_PANEL_PICs/traditional_marine_system.png" alt="Traditional marine panel — the system this project replaces" loading="lazy">
+                </div>
+            </div>
+
+            <h2>System Architecture</h2>
+            <p>Three custom PCBs communicate over a common inter-board bus. The Mainboard is the vessel brain: it handles GSM, RTC, and NMEA 2000. The Button Module provides physical load switching with a hardware-only fail-safe path — the relay operates correctly even if the MCU is offline. The LCD Module replaces analog gauges with high-resolution digital readouts via an 18-bit ADC and OLED display driven by LVGL.</p>
+
+            <div class="gallery">
+                <div class="gallery-item" style="grid-column: 1 / -1; max-width: 820px; margin: 0 auto; aspect-ratio: auto;">
+                    <img src="SMART_BOAT_PANEL_PICs/system_overview.png" alt="System block diagram showing the three-board architecture" loading="lazy">
+                </div>
+                <div class="gallery-item" style="grid-column: 1 / -1; max-width: 820px; margin: 0 auto; aspect-ratio: auto;">
+                    <img src="SMART_BOAT_PANEL_PICs/Untitled.png" alt="Three-board communication overview" loading="lazy">
+                </div>
+            </div>
+
+            <h2>PCB Modules</h2>
+
+            <div class="module-card">
+                <div class="module-header">
+                    <span class="module-number">01</span>
+                    <div>
+                        <p class="module-title">Mainboard — Vessel Brain</p>
+                        <p class="module-subtitle">OTTI Mainboard Ver. 0.1 R2 &nbsp;·&nbsp; EasyEDA &nbsp;·&nbsp; Two-layer square PCB</p>
+                    </div>
+                </div>
+                <p>Central intelligence for the vessel: logs sensor data from the NMEA 2000 bus, provides remote cellular communication via an integrated 4G/LTE modem, and keeps accurate timestamps with a coin-cell backed RTC. Power input accepts raw 12–24 V marine battery rails and regulates down to 3.3 V logic and 4 V modem supplies.</p>
                 <ul>
-                    <li><strong>Integrated Touch Display</strong> - Intuitive user interface for complete vessel control</li>
-                    <li><strong>Wireless Communication</strong> - Remote monitoring and control capabilities</li>
-                    <li><strong>Smart Switches</strong> - Intelligent switching modules for lighting and equipment</li>
-                    <li><strong>Modular Design</strong> - Expandable architecture for custom configurations</li>
-                    <li><strong>Real-time Monitoring</strong> - Battery levels, power consumption, and system status</li>
-                    <li><strong>Marine-Grade Components</strong> - Waterproof and corrosion-resistant design</li>
+                    <li><strong>MCU:</strong> ESP32 module (Wi-Fi + Bluetooth) with BOOT / RST buttons and USB flash port</li>
+                    <li><strong>Cellular:</strong> 4G/LTE SIM module with dedicated VIN → 4 V buck converter and external SMA antenna connector</li>
+                    <li><strong>NMEA 2000:</strong> CAN bus marine standard with 120 Ω termination and panel-mount M12 waterproof connector</li>
+                    <li><strong>RTC:</strong> Coin-cell battery holder for offline timekeeping</li>
+                    <li><strong>Power:</strong> 12–24 V marine input → 3.3 V logic rail + 4 V modem rail</li>
+                    <li><strong>Status:</strong> Discrete Wi-Fi, Bluetooth, and link LEDs</li>
                 </ul>
             </div>
 
-            <h2>System Overview</h2>
-            <div class="gallery">
-                <div class="gallery-item" style="grid-column: 1 / -1; max-width: 800px; margin: 0 auto;">
-                    <img src="SMART_BOAT_PANEL_PICs/system_overview.png" alt="Smart Boat Panel System Overview" loading="lazy">
+            <div class="module-card">
+                <div class="module-header">
+                    <span class="module-number">02</span>
+                    <div>
+                        <p class="module-title">Button Module — Hardware Fail-Safe Switch</p>
+                        <p class="module-subtitle">OTTI Button Module Ver. 0.1 R3 &nbsp;·&nbsp; EasyEDA &nbsp;·&nbsp; Compact two-layer PCB</p>
+                    </div>
                 </div>
-                <div class="gallery-item" style="grid-column: 1 / -1; max-width: 800px; margin: 0 auto;">
-                    <img src="SMART_BOAT_PANEL_PICs/Untitled.png" alt="System Architecture" loading="lazy">
+                <p>Compact control node enabling physical load switching with a guaranteed hardware-only fail-safe path — the relay operates correctly even if the MCU is unpowered or mid-firmware update. A discrete latch/debounce logic circuit (MAX9516EUBL) sits between the momentary button and the N-MOSFET gate, ensuring reliable operation without any firmware dependency.</p>
+                <ul>
+                    <li><strong>MCU:</strong> ESP32 with onboard antenna (Wi-Fi + Bluetooth)</li>
+                    <li><strong>Power:</strong> 12 V input → 3.3 V via synchronous buck converter (inductor + feedback network)</li>
+                    <li><strong>Load switching:</strong> SRA-12VDC-CL relay driven via N-MOSFET; flyback diode protects the coil</li>
+                    <li><strong>Fail-safe logic:</strong> MAX9516EUBL latch + HTC1600SW128 — panel usable without MCU</li>
+                    <li><strong>User I/O:</strong> Panel-mount push-button with integrated LED; discrete Wi-Fi / BT status LEDs</li>
+                    <li><strong>Programming:</strong> BD21A4N8 UART-USB bridge with JST connector for field firmware updates</li>
+                    <li><strong>Connectivity:</strong> Screw terminals for REL_NO / REL_COM / EL_COM; edge connector for inter-board communication</li>
+                </ul>
+            </div>
+
+            <div class="module-card">
+                <div class="module-header">
+                    <span class="module-number">03</span>
+                    <div>
+                        <p class="module-title">LCD Module — Digital Instrument Readout</p>
+                        <p class="module-subtitle">OTTI LCD Module V0.1 &nbsp;·&nbsp; JLCPCB-002 &nbsp;·&nbsp; EasyEDA &nbsp;·&nbsp; Compact red two-layer PCB</p>
+                    </div>
+                </div>
+                <p>Replaces legacy analog voltage and current gauges with precise digital readouts. Two signal-conditioning channels scale raw sensor voltages via resistor dividers before feeding an 18-bit delta-sigma ADC. A digital potentiometer (I²C) allows programmable gain adjustment per installation. The ESP32 drives a circular OLED via LVGL for a clean, readable instrument face.</p>
+                <ul>
+                    <li><strong>Power:</strong> AMS1117CD-3.3 LDO (12 V → 3.3 V) with 10 µF + 100 nF decoupling</li>
+                    <li><strong>ADC:</strong> MCP3424 — 4-channel, 18-bit delta-sigma over I²C; reads V1, V2, C1, C2 channels</li>
+                    <li><strong>Signal conditioning:</strong> Resistor dividers (24 kΩ / 9.1 kΩ) for raw sensor scaling; MCP4562 digital potentiometer for programmable gain</li>
+                    <li><strong>Display:</strong> FPC 1.25-2PWB flat-flex connector for OLED panel; rendered by LVGL on the host ESP32</li>
+                    <li><strong>Field terminals:</strong> Three 2-pin screw terminals for V1, V2, C1/C2; separate 12 V power terminal</li>
+                    <li><strong>Interface:</strong> 4-pin I²C header (SCL, SDA, 3V3, GND) to main controller</li>
+                </ul>
+            </div>
+
+            <h2>Panel Design &amp; Renders</h2>
+            <div class="gallery">
+                <div class="gallery-item">
+                    <img src="SMART_BOAT_PANEL_PICs/boat_panel_render.png" alt="3D render of the vessel panel enclosure" loading="lazy">
+                </div>
+                <div class="gallery-item">
+                    <img src="SMART_BOAT_PANEL_PICs/panel_front.png" alt="Panel front view" loading="lazy">
+                </div>
+                <div class="gallery-item">
+                    <img src="SMART_BOAT_PANEL_PICs/panel_back.png" alt="Panel rear view" loading="lazy">
+                </div>
+                <div class="gallery-item">
+                    <img src="SMART_BOAT_PANEL_PICs/panel_open.png" alt="Panel enclosure open — internal wiring" loading="lazy">
+                </div>
+                <div class="gallery-item">
+                    <img src="SMART_BOAT_PANEL_PICs/xray_back.png" alt="X-ray back view of panel" loading="lazy">
+                </div>
+                <div class="gallery-item">
+                    <img src="SMART_BOAT_PANEL_PICs/panel2.png" alt="Alternate panel design variant" loading="lazy">
                 </div>
             </div>
 
-            <h2>Panel Design</h2>
+            <h2>LVGL Display Interface</h2>
+            <p>Legacy analog gauges were replaced with circular OLEDs running LVGL. The UI renders real-time voltage, current, and status data drawn from the 18-bit ADC via I²C — eliminating mechanical gauge failure modes and enabling fully configurable readout layouts.</p>
             <div class="gallery">
                 <div class="gallery-item">
-                    <img src="SMART_BOAT_PANEL_PICs/boat_panel_render.png" alt="Panel 3D Render" loading="lazy">
+                    <img src="SMART_BOAT_PANEL_PICs/display_ui.png" alt="LVGL UI — circular gauge screen" loading="lazy">
                 </div>
                 <div class="gallery-item">
-                    <img src="SMART_BOAT_PANEL_PICs/panel_front.png" alt="Panel Front View" loading="lazy">
+                    <img src="SMART_BOAT_PANEL_PICs/display_pcb.png" alt="LCD module PCB layout" loading="lazy">
                 </div>
                 <div class="gallery-item">
-                    <img src="SMART_BOAT_PANEL_PICs/panel_back.png" alt="Panel Back View" loading="lazy">
+                    <img src="SMART_BOAT_PANEL_PICs/Screenshot 2024-12-26 014030.png" alt="LVGL UI screenshot — instrument screen" loading="lazy">
                 </div>
                 <div class="gallery-item">
-                    <img src="SMART_BOAT_PANEL_PICs/panel_open.png" alt="Panel Internal View" loading="lazy">
-                </div>
-                <div class="gallery-item">
-                    <img src="SMART_BOAT_PANEL_PICs/xray_back.png" alt="Panel X-Ray View" loading="lazy">
-                </div>
-                <div class="gallery-item">
-                    <img src="SMART_BOAT_PANEL_PICs/panel2.png" alt="Panel Design" loading="lazy">
+                    <img src="SMART_BOAT_PANEL_PICs/Screenshot 2024-12-26 014110.png" alt="LVGL UI screenshot — gauge detail view" loading="lazy">
                 </div>
             </div>
 
-            <h2>Display & User Interface</h2>
+            <h2>PCB &amp; Electronics</h2>
             <div class="gallery">
                 <div class="gallery-item">
-                    <img src="SMART_BOAT_PANEL_PICs/display_ui.png" alt="Display User Interface" loading="lazy">
+                    <img src="SMART_BOAT_PANEL_PICs/mainboard_pcb_3d.jpg" alt="Mainboard PCB — 3D render" loading="lazy">
                 </div>
                 <div class="gallery-item">
-                    <img src="SMART_BOAT_PANEL_PICs/display_pcb.png" alt="Display PCB" loading="lazy">
+                    <img src="SMART_BOAT_PANEL_PICs/switch_pcb_front.png" alt="Button module PCB — front copper" loading="lazy">
                 </div>
                 <div class="gallery-item">
-                    <img src="SMART_BOAT_PANEL_PICs/Screenshot 2024-12-26 014030.png" alt="UI Screenshot" loading="lazy">
+                    <img src="SMART_BOAT_PANEL_PICs/switch_pcb_back.png" alt="Button module PCB — back copper" loading="lazy">
                 </div>
                 <div class="gallery-item">
-                    <img src="SMART_BOAT_PANEL_PICs/Screenshot 2024-12-26 014110.png" alt="UI Screenshot" loading="lazy">
+                    <img src="SMART_BOAT_PANEL_PICs/button.png" alt="Panel-mount push-button component" loading="lazy">
+                </div>
+                <div class="gallery-item">
+                    <img src="SMART_BOAT_PANEL_PICs/screw.png" alt="Marine-grade screw terminal connector" loading="lazy">
+                </div>
+                <div class="gallery-item">
+                    <img src="SMART_BOAT_PANEL_PICs/schematic.jpg" alt="Circuit schematic excerpt" loading="lazy">
                 </div>
             </div>
 
-            <h2>Electronic Components</h2>
+            <h2>Installation &amp; Prototype</h2>
+            <p>Prototype boards were assembled and tested aboard actual sailing vessels, validating the design under real marine conditions — 12 V / 24 V battery rails, vibration, and high-humidity salt-air environments.</p>
             <div class="gallery">
-                <div class="gallery-item">
-                    <img src="SMART_BOAT_PANEL_PICs/mainboard_pcb_3d.jpg" alt="Mainboard PCB" loading="lazy">
+                <div class="gallery-item" style="grid-column: 1 / -1; max-width: 820px; margin: 0 auto; aspect-ratio: auto;">
+                    <img src="SMART_BOAT_PANEL_PICs/image.png" alt="Project overview diagram" loading="lazy">
                 </div>
                 <div class="gallery-item">
-                    <img src="SMART_BOAT_PANEL_PICs/switch_pcb_front.png" alt="Switch PCB Front" loading="lazy">
+                    <img src="SMART_BOAT_PANEL_PICs/IMG_3992.JPG" alt="Assembled boards wired on the bench" loading="lazy">
                 </div>
                 <div class="gallery-item">
-                    <img src="SMART_BOAT_PANEL_PICs/switch_pcb_back.png" alt="Switch PCB Back" loading="lazy">
+                    <img src="SMART_BOAT_PANEL_PICs/IMG_3987.JPG" alt="Prototype modules laid out for testing" loading="lazy">
                 </div>
                 <div class="gallery-item">
-                    <img src="SMART_BOAT_PANEL_PICs/button.png" alt="Button Module" loading="lazy">
+                    <img src="SMART_BOAT_PANEL_PICs/catamaran panel.235.png" alt="Catamaran panel integration mock-up" loading="lazy">
                 </div>
                 <div class="gallery-item">
-                    <img src="SMART_BOAT_PANEL_PICs/screw.png" alt="Mounting Components" loading="lazy">
+                    <img src="SMART_BOAT_PANEL_PICs/catamaran panel.238.png" alt="Panel installed in catamaran cutout" loading="lazy">
                 </div>
                 <div class="gallery-item">
-                    <img src="SMART_BOAT_PANEL_PICs/schematic.jpg" alt="Circuit Schematic" loading="lazy">
+                    <img src="SMART_BOAT_PANEL_PICs/PHOTO-2024-04-02-19-05-52.jpg" alt="On-vessel installation photo" loading="lazy">
                 </div>
             </div>
 
-            <h2>Wireless Communication</h2>
-            <div class="gallery">
-                <div class="gallery-item" style="grid-column: 1 / -1; max-width: 600px; margin: 0 auto;">
-                    <img src="SMART_BOAT_PANEL_PICs/wireless_comm.png" alt="Wireless Communication System" loading="lazy">
-                </div>87.JPG" alt="Prototype Photo 1" loading="lazy">
-                </div>
-                <div class="gallery-item">
-                    <img src="SMART_BOAT_PANEL_PICs/IMG_3992.JPG" alt="Prototype Photo 2" loading="lazy">
-                </div>
-                <div class="gallery-item">
-                    <img src="SMART_BOAT_PANEL_PICs/IMG_3987.JPG" alt="Prototype Photo 2" loading="lazy">
-                </div>
-                <div class="gallery-item">
-                    <img src="SMART_BOAT_PANEL_PICs/IMG_3992.JPG" alt="Prototype Photo 3" loading="lazy">
-                </div>
-                <div class="gallery-item">
-                    <img src="SMART_BOAT_PANEL_PICs/catamaran panel.235.png" alt="Catamaran Panel" loading="lazy">
-                </div>
-                <div class="gallery-item">
-                    <img src="SMART_BOAT_PANEL_PICs/catamaran panel.238.png" alt="Catamaran Installation" loading="lazy">
-                </div>
-                <div class="gallery-item">
-                    <img src="SMART_BOAT_PANEL_PICs/PHOTO-2024-04-02-19-05-52.jpg" alt="Installation Photo" loading="lazy">
-                </div>
-            </div>
-
-            <h2>Additional Resources</h2>
+            <h2>Additional Views</h2>
             <div class="gallery">
                 <div class="gallery-item">
-                    <img src="SMART_BOAT_PANEL_PICs/Screenshot 2025-04-14 221051.png" alt="Project Screenshot" loading="lazy">
+                    <img src="SMART_BOAT_PANEL_PICs/Screenshot 2025-04-14 221051.png" alt="Project thesis screenshot" loading="lazy">
                 </div>
                 <div class="gallery-item">
-                    <img src="SMART_BOAT_PANEL_PICs/image.png" alt="Design Detail" loading="lazy">
-                </div>
-                <div class="gallery-item">
-                    <img src="SMART_BOAT_PANEL_PICs/ewffr.png" alt="Technical Detail" loading="lazy">
-                </div>
-                <div class="gallery-item">
-                    <img src="SMART_BOAT_PANEL_PICs/traditional_marine_system.png" alt="Traditional Marine System" loading="lazy">
+                    <img src="SMART_BOAT_PANEL_PICs/ewffr.png" alt="Technical detail — wiring diagram" loading="lazy">
                 </div>
             </div>
 
